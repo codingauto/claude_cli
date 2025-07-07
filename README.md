@@ -804,6 +804,10 @@ npm run debug
 - 🐛 **问题反馈**: 在 [Issues](https://gitee.com/codeauto/claude_cli/issues) 页面报告问题
 - 💡 **功能建议**: 欢迎提出新功能建议
 
+## 🙏 致谢
+
+特别感谢 [shiyongyin](https://gitee.com/shiyongyin) 在功能增强方面的贡献和支持！
+
 ---
 
 **让 Claude API 访问更稳定！** 🚀
