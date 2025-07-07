@@ -4,6 +4,8 @@
 >
 > [![MIT License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE) ![node](https://img.shields.io/badge/node-%3E=18.0-blue) ![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)
 
+**语言**: **中文** | [English](README_EN.md)
+
 ---
 
 <div align="center">
