@@ -1,0 +1,79 @@
+{"level":"info","message":"🔧 初始化核心组件...","timestamp":"2025-06-28T07:13:50.984Z"}
+{"component":"ProxyManager","level":"info","message":"Initializing ProxyManager","timestamp":"2025-06-28T07:13:50.986Z"}
+{"action":"creating_session","component":"ProxyManager","level":"info","message":"Proxy Action","provider":"test-provider","sessionId":"[REDACTED]","timestamp":"2025-06-28T07:13:50.987Z","type":"proxy"}
+{"component":"SessionManager","level":"debug","message":"启动会话管理后台任务","timestamp":"2025-06-28T07:13:50.998Z"}
+{"component":"SecurityManager","http2":true,"level":"info","message":"安全管理器初始化完成","timestamp":"2025-06-28T07:13:50.998Z","tlsFingerprinting":true,"userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Ap..."}
+{"level":"info","message":"✅ 核心组件初始化完成","timestamp":"2025-06-28T07:13:50.999Z"}
+{"endpoints":["http://localhost:3003/health","http://localhost:3003/stats","http://localhost:3003/v1/*"],"environment":"test","level":"info","message":"🎉 Claude 住宅代理服务器启动成功","port":"3003","timestamp":"2025-06-28T07:13:51.007Z"}
+{"level":"info","message":"收到SIGTERM信号，开始优雅关闭...","timestamp":"2025-06-28T07:13:51.260Z"}
+{"component":"SessionManager","level":"info","message":"会话管理器已关闭","timestamp":"2025-06-28T07:13:51.260Z"}
+{"component":"ProxyManager","level":"info","message":"Shutting down ProxyManager","timestamp":"2025-06-28T07:13:51.261Z"}
+{"level":"info","message":"🔧 初始化核心组件...","timestamp":"2025-06-28T07:13:56.819Z"}
+{"component":"ProxyManager","level":"info","message":"Initializing ProxyManager","timestamp":"2025-06-28T07:13:56.822Z"}
+{"action":"creating_session","component":"ProxyManager","level":"info","message":"Proxy Action","provider":"test-provider","sessionId":"[REDACTED]","timestamp":"2025-06-28T07:13:56.822Z","type":"proxy"}
+{"component":"SecurityManager","http2":true,"level":"info","message":"安全管理器初始化完成","timestamp":"2025-06-28T07:13:56.833Z","tlsFingerprinting":true,"userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Ap..."}
+{"level":"info","message":"✅ 核心组件初始化完成","timestamp":"2025-06-28T07:13:56.833Z"}
+{"endpoints":["http://localhost:3002/health","http://localhost:3002/stats","http://localhost:3002/v1/*"],"environment":"test","level":"info","message":"🎉 Claude 住宅代理服务器启动成功","port":"3002","timestamp":"2025-06-28T07:13:56.840Z"}
+{"level":"info","message":"收到SIGTERM信号，开始优雅关闭...","timestamp":"2025-06-28T07:13:57.326Z"}
+{"component":"SessionManager","level":"info","message":"会话管理器已关闭","timestamp":"2025-06-28T07:13:57.327Z"}
+{"component":"ProxyManager","level":"info","message":"Shutting down ProxyManager","timestamp":"2025-06-28T07:13:57.328Z"}
+{"level":"info","message":"🔧 初始化核心组件...","timestamp":"2025-06-28T07:16:40.935Z"}
+{"component":"ProxyManager","level":"info","message":"Initializing ProxyManager","timestamp":"2025-06-28T07:16:40.937Z"}
+{"action":"creating_session","component":"ProxyManager","level":"info","message":"Proxy Action","provider":"test-provider","sessionId":"[REDACTED]","timestamp":"2025-06-28T07:16:40.937Z","type":"proxy"}
+{"component":"SecurityManager","http2":true,"level":"info","message":"安全管理器初始化完成","timestamp":"2025-06-28T07:16:40.945Z","tlsFingerprinting":true,"userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Ap..."}
+{"level":"info","message":"✅ 核心组件初始化完成","timestamp":"2025-06-28T07:16:40.946Z"}
+{"endpoints":["http://localhost:8888/health","http://localhost:8888/stats","http://localhost:8888/v1/*"],"environment":"development","level":"info","message":"🎉 Claude 住宅代理服务器启动成功","port":"8888","timestamp":"2025-06-28T07:16:40.952Z"}
+{"component":"ProxyManager","error":"Proxy connection ended before receiving CONNECT response","level":"error","message":"Proxy connection test failed","testUrl":"https://httpbin.org/ip","timestamp":"2025-06-28T07:17:41.169Z"}
+{"component":"ProxyManager","error":"Proxy connection test failed: Proxy connection ended before receiving CONNECT response","level":"error","message":"Failed to create session","provider":"test-provider","sessionId":"[REDACTED]","timestamp":"2025-06-28T07:17:41.179Z"}
+{"component":"ProxyManager","error":"Proxy connection test failed: Proxy connection ended before receiving CONNECT response","level":"error","message":"Failed to initialize ProxyManager","timestamp":"2025-06-28T07:17:41.179Z"}
+{"date":"Sat Jun 28 2025 15:17:41 GMT+0800 (中国标准时间)","error":{},"level":"error","message":"unhandledRejection: Proxy connection test failed: Proxy connection ended before receiving CONNECT response\nError: Proxy connection test failed: Proxy connection ended before receiving CONNECT response\n    at ProxyManager.testProxyConnection (file:///Users/coso/Downloads/package/claude_cli/src/managers/ProxyManager.js:189:13)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at async ProxyManager.createSession (file:///Users/coso/Downloads/package/claude_cli/src/managers/ProxyManager.js:100:7)\n    at async ProxyManager.initialize (file:///Users/coso/Downloads/package/claude_cli/src/managers/ProxyManager.js:56:7)","os":{"loadavg":[10.02001953125,9.76708984375,10.11328125],"uptime":426297},"process":{"argv":["/opt/homebrew/Cellar/node@20/20.18.1/bin/node","/Users/coso/Downloads/package/claude_cli/src/index.js"],"cwd":"/Users/coso/Downloads/package/claude_cli","execPath":"/opt/homebrew/Cellar/node@20/20.18.1/bin/node","gid":20,"memoryUsage":{"arrayBuffers":131472,"external":3652627,"heapTotal":13565952,"heapUsed":12140568,"rss":23150592},"pid":5873,"uid":501,"version":"v20.18.1"},"rejection":true,"stack":"Error: Proxy connection test failed: Proxy connection ended before receiving CONNECT response\n    at ProxyManager.testProxyConnection (file:///Users/coso/Downloads/package/claude_cli/src/managers/ProxyManager.js:189:13)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at async ProxyManager.createSession (file:///Users/coso/Downloads/package/claude_cli/src/managers/ProxyManager.js:100:7)\n    at async ProxyManager.initialize (file:///Users/coso/Downloads/package/claude_cli/src/managers/ProxyManager.js:56:7)","timestamp":"2025-06-28T07:17:41.185Z","trace":[{"column":13,"file":"file:///Users/coso/Downloads/package/claude_cli/src/managers/ProxyManager.js","function":"ProxyManager.testProxyConnection","line":189,"method":"testProxyConnection","native":false},{"column":5,"file":"node:internal/process/task_queues","function":"process.processTicksAndRejections","line":95,"method":"processTicksAndRejections","native":false},{"column":7,"file":"file:///Users/coso/Downloads/package/claude_cli/src/managers/ProxyManager.js","function":"async ProxyManager.createSession","line":100,"method":"createSession","native":false},{"column":7,"file":"file:///Users/coso/Downloads/package/claude_cli/src/managers/ProxyManager.js","function":"async ProxyManager.initialize","line":56,"method":"initialize","native":false}]}
+{"level":"error","message":"未处理的Promise拒绝","reason":{},"timestamp":"2025-06-28T07:17:41.187Z"}
+{"level":"info","message":"🔧 初始化核心组件...","timestamp":"2025-06-28T08:40:09.452Z"}
+{"component":"ProxyManager","level":"info","message":"Initializing ProxyManager","timestamp":"2025-06-28T08:40:09.453Z"}
+{"action":"creating_session","component":"ProxyManager","level":"info","message":"Proxy Action","provider":"test-provider","sessionId":"[REDACTED]","timestamp":"2025-06-28T08:40:09.455Z","type":"proxy"}
+{"component":"SecurityManager","http2":true,"level":"info","message":"安全管理器初始化完成","timestamp":"2025-06-28T08:40:09.469Z","tlsFingerprinting":true,"userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Ap..."}
+{"level":"info","message":"✅ 核心组件初始化完成","timestamp":"2025-06-28T08:40:09.469Z"}
+{"endpoints":["http://localhost:8080/health","http://localhost:8080/stats","http://localhost:8080/v1/*"],"environment":"production","level":"info","message":"🎉 Claude 住宅代理服务器启动成功","port":8080,"timestamp":"2025-06-28T08:40:09.492Z"}
+{"level":"info","message":"收到SIGTERM信号，开始优雅关闭...","timestamp":"2025-06-28T08:40:09.509Z"}
+{"component":"SessionManager","level":"info","message":"会话管理器已关闭","timestamp":"2025-06-28T08:40:09.511Z"}
+{"component":"ProxyManager","level":"info","message":"Shutting down ProxyManager","timestamp":"2025-06-28T08:40:09.511Z"}
+{"level":"info","message":"🔧 初始化核心组件...","timestamp":"2025-06-28T08:40:46.735Z"}
+{"component":"ProxyManager","level":"info","message":"Initializing ProxyManager","timestamp":"2025-06-28T08:40:46.736Z"}
+{"action":"creating_session","component":"ProxyManager","level":"info","message":"Proxy Action","provider":"test-provider","sessionId":"[REDACTED]","timestamp":"2025-06-28T08:40:46.737Z","type":"proxy"}
+{"component":"SecurityManager","http2":true,"level":"info","message":"安全管理器初始化完成","timestamp":"2025-06-28T08:40:46.745Z","tlsFingerprinting":true,"userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Ap..."}
+{"level":"info","message":"✅ 核心组件初始化完成","timestamp":"2025-06-28T08:40:46.746Z"}
+{"endpoints":["http://localhost:8080/health","http://localhost:8080/stats","http://localhost:8080/v1/*"],"environment":"production","level":"info","message":"🎉 Claude 住宅代理服务器启动成功","port":8080,"timestamp":"2025-06-28T08:40:46.764Z"}
+{"level":"info","message":"收到SIGTERM信号，开始优雅关闭...","timestamp":"2025-06-28T08:40:46.790Z"}
+{"component":"SessionManager","level":"info","message":"会话管理器已关闭","timestamp":"2025-06-28T08:40:46.791Z"}
+{"component":"ProxyManager","level":"info","message":"Shutting down ProxyManager","timestamp":"2025-06-28T08:40:46.791Z"}
+{"level":"info","message":"🔧 初始化核心组件...","timestamp":"2025-06-28T08:41:05.704Z"}
+{"component":"ProxyManager","level":"info","message":"Initializing ProxyManager","timestamp":"2025-06-28T08:41:05.705Z"}
+{"action":"creating_session","component":"ProxyManager","level":"info","message":"Proxy Action","provider":"test-provider","sessionId":"[REDACTED]","timestamp":"2025-06-28T08:41:05.706Z","type":"proxy"}
+{"component":"SecurityManager","http2":true,"level":"info","message":"安全管理器初始化完成","timestamp":"2025-06-28T08:41:05.716Z","tlsFingerprinting":true,"userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Ap..."}
+{"level":"info","message":"✅ 核心组件初始化完成","timestamp":"2025-06-28T08:41:05.716Z"}
+{"endpoints":["http://localhost:8080/health","http://localhost:8080/stats","http://localhost:8080/v1/*"],"environment":"production","level":"info","message":"🎉 Claude 住宅代理服务器启动成功","port":8080,"timestamp":"2025-06-28T08:41:05.726Z"}
+{"level":"info","message":"收到SIGTERM信号，开始优雅关闭...","timestamp":"2025-06-28T08:41:05.734Z"}
+{"component":"SessionManager","level":"info","message":"会话管理器已关闭","timestamp":"2025-06-28T08:41:05.735Z"}
+{"component":"ProxyManager","level":"info","message":"Shutting down ProxyManager","timestamp":"2025-06-28T08:41:05.735Z"}
+{"level":"info","message":"🔧 初始化核心组件...","timestamp":"2025-06-28T08:41:24.241Z"}
+{"component":"ProxyManager","level":"info","message":"Initializing ProxyManager","timestamp":"2025-06-28T08:41:24.243Z"}
+{"action":"creating_session","component":"ProxyManager","level":"info","message":"Proxy Action","provider":"test-provider","sessionId":"[REDACTED]","timestamp":"2025-06-28T08:41:24.243Z","type":"proxy"}
+{"component":"SessionManager","level":"debug","message":"启动会话管理后台任务","timestamp":"2025-06-28T08:41:24.250Z"}
+{"component":"SecurityManager","http2":true,"level":"info","message":"安全管理器初始化完成","timestamp":"2025-06-28T08:41:24.250Z","tlsFingerprinting":true,"userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Ap..."}
+{"level":"info","message":"✅ 核心组件初始化完成","timestamp":"2025-06-28T08:41:24.251Z"}
+{"endpoints":["http://localhost:3003/health","http://localhost:3003/stats","http://localhost:3003/v1/*"],"environment":"test","level":"info","message":"🎉 Claude 住宅代理服务器启动成功","port":"3003","timestamp":"2025-06-28T08:41:24.257Z"}
+{"level":"info","message":"收到SIGTERM信号，开始优雅关闭...","timestamp":"2025-06-28T08:41:24.691Z"}
+{"component":"SessionManager","level":"info","message":"会话管理器已关闭","timestamp":"2025-06-28T08:41:24.692Z"}
+{"component":"ProxyManager","level":"info","message":"Shutting down ProxyManager","timestamp":"2025-06-28T08:41:24.693Z"}
+{"level":"info","message":"🔧 初始化核心组件...","timestamp":"2025-06-28T08:41:30.362Z"}
+{"component":"ProxyManager","level":"info","message":"Initializing ProxyManager","timestamp":"2025-06-28T08:41:30.368Z"}
+{"action":"creating_session","component":"ProxyManager","level":"info","message":"Proxy Action","provider":"test-provider","sessionId":"[REDACTED]","timestamp":"2025-06-28T08:41:30.370Z","type":"proxy"}
+{"component":"SecurityManager","http2":true,"level":"info","message":"安全管理器初始化完成","timestamp":"2025-06-28T08:41:30.395Z","tlsFingerprinting":true,"userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Ap..."}
+{"level":"info","message":"✅ 核心组件初始化完成","timestamp":"2025-06-28T08:41:30.396Z"}
+{"endpoints":["http://localhost:3002/health","http://localhost:3002/stats","http://localhost:3002/v1/*"],"environment":"test","level":"info","message":"🎉 Claude 住宅代理服务器启动成功","port":"3002","timestamp":"2025-06-28T08:41:30.498Z"}
+{"level":"info","message":"收到SIGTERM信号，开始优雅关闭...","timestamp":"2025-06-28T08:41:30.735Z"}
+{"component":"SessionManager","level":"info","message":"会话管理器已关闭","timestamp":"2025-06-28T08:41:30.739Z"}
+{"component":"ProxyManager","level":"info","message":"Shutting down ProxyManager","timestamp":"2025-06-28T08:41:30.740Z"}
+{"level":"info","message":"收到SIGTERM信号，开始优雅关闭...","timestamp":"2025-06-28T08:44:02.037Z"}
+{"component":"SessionManager","level":"info","message":"会话管理器已关闭","timestamp":"2025-06-28T08:44:02.051Z"}
+{"component":"ProxyManager","level":"info","message":"Shutting down ProxyManager","timestamp":"2025-06-28T08:44:02.051Z"}

@@ -1,0 +1,87 @@
+{
+  "name": "claude-residential-proxy",
+  "version": "1.0.0",
+  "description": "固定住宅IP代理服务 for Claude Code - 基于tech_local.md方案实现",
+  "main": "src/index.js",
+  "type": "module",
+  "bin": {
+    "claude-proxy": "src/index.js"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "scripts": {
+    "start": "node scripts/start-proxy.js",
+    "start:direct": "node src/index.js",
+    "dev": "nodemon scripts/start-proxy.js",
+    "dev:direct": "nodemon src/index.js",
+    "test": "node --test tests/*.test.js tests/**/*.test.js",
+    "test:unit": "node --test tests/unit/*.test.js",
+    "test:integration": "node --test tests/integration/*.test.js",
+    "test:e2e": "node --test tests/e2e/*.test.js",
+    "test:watch": "nodemon --exec 'npm test'",
+    "test:coverage": "c8 npm test",
+    "test:sdk": "node tests/sdk-test.js",
+    "lint": "eslint src/ tests/ --fix",
+    "lint:check": "eslint src/ tests/",
+    "setup": "./scripts/setup.sh",
+    "monitor": "./scripts/monitor.sh",
+    "health": "curl -s http://127.0.0.1:8080/health | jq",
+    "stats": "curl -s http://127.0.0.1:8080/stats | jq",
+    "build": "echo 'No build step required'",
+    "validate": "npm run lint:check && npm test",
+    "debug": "DEBUG_PROXY=1 node scripts/start-proxy.js",
+    "demo": "node examples/sdk-demo.js",
+    "build:release": "npm run package:source",
+    "package:source": "mkdir -p dist && npm pack && mv *.tgz dist/ && npm run create:install-scripts",
+    "create:install-scripts": "mkdir -p dist/install-scripts && echo '#!/bin/bash\nnpm install -g claude-residential-proxy-*.tgz' > dist/install-scripts/install-linux.sh && echo '@echo off\nnpm install -g claude-residential-proxy-*.tgz' > dist/install-scripts/install-windows.bat && chmod +x dist/install-scripts/install-linux.sh"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "axios": "^1.6.0",
+    "http2-wrapper": "^2.2.1",
+    "https-proxy-agent": "^7.0.2",
+    "http-proxy-agent": "^7.0.0",
+    "http-proxy-middleware": "^2.0.6",
+    "cors": "^2.8.5",
+    "helmet": "^7.1.0",
+    "compression": "^1.7.4",
+    "express-rate-limit": "^7.1.5",
+    "dotenv": "^16.3.1",
+    "chalk": "^5.3.0",
+    "boxen": "^7.1.1",
+    "winston": "^3.11.0",
+    "winston-daily-rotate-file": "^4.7.1",
+    "bottleneck": "^2.19.5",
+    "p-limit": "^4.0.0",
+    "node-cron": "^3.0.3",
+    "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1",
+    "eslint": "^8.50.0",
+    "c8": "^8.0.1",
+    "supertest": "^6.3.3",
+    "nock": "^13.3.8",
+    "sinon": "^17.0.1",
+    "pkg": "^5.8.1"
+  },
+  "keywords": [
+    "claude",
+    "proxy",
+    "residential",
+    "anti-detection",
+    "fixed-ip",
+    "anthropic"
+  ],
+  "author": "Claude Proxy Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/your-org/claude-residential-proxy.git"
+  },
+  "bugs": {
+    "url": "https://github.com/your-org/claude-residential-proxy/issues"
+  },
+  "homepage": "https://github.com/your-org/claude-residential-proxy#readme"
+} 

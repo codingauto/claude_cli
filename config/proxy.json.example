@@ -1,0 +1,28 @@
+{
+  "server": {
+    "port": 7070,
+    "host": "127.0.0.1"
+  },
+  "providers": [
+    {
+      "name": "residential-proxy-1",
+      "host": "your.proxy.host",
+      "port": 8080,
+      "username": "your-username",
+      "password": "your-password",
+      "timeout": 30000
+    },
+    {
+      "name": "residential-proxy-2",
+      "host": "backup.proxy.host",
+      "port": 8080,
+      "username": "your-username",
+      "password": "your-password",
+      "timeout": 30000
+    }
+  ],
+  "healthCheckInterval": 300000,
+  "sessionDuration": 86400000,
+  "maxRetries": 3,
+  "retryDelay": 1000
+}

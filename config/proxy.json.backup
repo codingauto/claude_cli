@@ -1,0 +1,16 @@
+{
+  "providers": [
+    {
+      "name": "test-provider",
+      "host": "proxy.example.com",
+      "port": 8080,
+      "username": "testuser",
+      "password": "testpass",
+      "timeout": 30000
+    }
+  ],
+  "healthCheckInterval": 60000,
+  "sessionDuration": 86400000,
+  "maxRetries": 3,
+  "retryDelay": 1000
+}

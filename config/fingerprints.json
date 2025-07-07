@@ -1,0 +1,55 @@
+{
+  "userAgents": {
+    "chrome": [
+      "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
+      "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
+      "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+    ],
+    "edge": [
+      "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0"
+    ],
+    "safari": [
+      "Mozilla/5.0 (Macintosh; Intel Mac OS X 14_2_1) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.2 Safari/605.1.15"
+    ],
+    "firefox": [
+      "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:133.0) Gecko/20100101 Firefox/133.0"
+    ]
+  },
+  "timezones": {
+    "US": ["America/New_York", "America/Chicago", "America/Los_Angeles"],
+    "UK": ["Europe/London"],
+    "JP": ["Asia/Tokyo"],
+    "EU": ["Europe/Berlin", "Europe/Paris", "Europe/Amsterdam"],
+    "AU": ["Australia/Sydney", "Australia/Melbourne"]
+  },
+  "languages": {
+    "US": "en-US,en;q=0.9",
+    "UK": "en-GB,en;q=0.9",
+    "JP": "ja-JP,ja;q=0.9,en;q=0.8",
+    "EU": "en-GB,en;q=0.9,de;q=0.8",
+    "AU": "en-AU,en;q=0.9"
+  },
+  "workingHours": {
+    "US": { "start": 9, "end": 18 },
+    "UK": { "start": 9, "end": 17 },
+    "JP": { "start": 9, "end": 19 },
+    "EU": { "start": 9, "end": 18 },
+    "AU": { "start": 9, "end": 17 }
+  },
+  "tlsConfig": {
+    "ciphers": [
+      "TLS_AES_128_GCM_SHA256",
+      "TLS_AES_256_GCM_SHA384",
+      "TLS_CHACHA20_POLY1305_SHA256",
+      "ECDHE-ECDSA-AES128-GCM-SHA256",
+      "ECDHE-RSA-AES128-GCM-SHA256"
+    ],
+    "protocols": ["h2", "http/1.1"],
+    "signatureAlgorithms": [
+      "ecdsa_secp256r1_sha256",
+      "rsa_pss_rsae_sha256",
+      "rsa_pkcs1_sha256"
+    ],
+    "supportedGroups": ["X25519", "P-256", "P-384"]
+  }
+}

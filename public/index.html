@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claude 代理服务管理面板</title>
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --success-color: #16a34a;
+            --error-color: #dc2626;
+            --warning-color: #ca8a04;
+            --bg-color: #f9fafb;
+            --card-bg: #ffffff;
+            --text-primary: #111827;
+            --text-secondary: #6b7280;
+            --border-color: #e5e7eb;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background-color: var(--card-bg);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h1 {
+            font-size: 24px;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            gap: 6px;
+        }
+
+        .status-badge.healthy {
+            background-color: #dcfce7;
+            color: var(--success-color);
+        }
+
+        .status-badge.unhealthy {
+            background-color: #fee2e2;
+            color: var(--error-color);
+        }
+
+        .status-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .status-indicator.healthy {
+            background-color: var(--success-color);
+            animation: pulse 2s infinite;
+        }
+
+        .status-indicator.unhealthy {
+            background-color: var(--error-color);
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .card h2 {
+            font-size: 16px;
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .stat-value {
+            font-size: 32px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .info-row:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+
+        .info-value {
+            color: var(--text-primary);
+            font-family: 'SF Mono', Consolas, monospace;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background-color: var(--border-color);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background-color: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #1d4ed8;
+        }
+
+        .btn-secondary {
+            background-color: var(--border-color);
+            color: var(--text-primary);
+        }
+
+        .btn-secondary:hover {
+            background-color: #d1d5db;
+        }
+
+        .logs-container {
+            background-color: #1f2937;
+            color: #f3f4f6;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'SF Mono', Consolas, monospace;
+            font-size: 12px;
+            max-height: 300px;
+            overflow-y: auto;
+            margin-top: 20px;
+        }
+
+        .log-entry {
+            margin-bottom: 5px;
+            white-space: pre-wrap;
+        }
+
+        .log-entry.info { color: #60a5fa; }
+        .log-entry.error { color: #f87171; }
+        .log-entry.warn { color: #fbbf24; }
+
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid var(--border-color);
+            border-radius: 50%;
+            border-top-color: var(--primary-color);
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .error-message {
+            background-color: #fee2e2;
+            color: var(--error-color);
+            padding: 10px;
+            border-radius: 6px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>
+                🏠 Claude 代理服务管理面板
+                <span id="health-status" class="status-badge">
+                    <span class="status-indicator"></span>
+                    <span class="status-text">检查中...</span>
+                </span>
+            </h1>
+        </div>
+
+        <div class="grid">
+            <div class="card">
+                <h2>服务状态</h2>
+                <div class="stat-value" id="uptime">--</div>
+                <div class="stat-label">运行时间</div>
+                <div class="info-row">
+                    <span class="info-label">端口</span>
+                    <span class="info-value">7070</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">环境</span>
+                    <span class="info-value" id="environment">--</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>代理信息</h2>
+                <div class="info-row">
+                    <span class="info-label">提供商</span>
+                    <span class="info-value" id="provider">--</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">代理 IP</span>
+                    <span class="info-value" id="proxy-ip">--</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">位置</span>
+                    <span class="info-value" id="location">--</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">健康状态</span>
+                    <span class="info-value" id="proxy-health">--</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>IP 纯净度评估</h2>
+                <div class="stat-value" id="ip-score" style="display: flex; align-items: baseline; gap: 10px;">
+                    <span>--</span>
+                    <span style="font-size: 16px; color: var(--text-secondary);">/100</span>
+                </div>
+                <div class="stat-label" id="ip-rating">评估中...</div>
+                <div class="progress-bar" style="margin-top: 15px;">
+                    <div class="progress-fill" id="ip-score-progress" style="width: 0%; background-color: var(--success-color);"></div>
+                </div>
+                <div class="info-row" style="margin-top: 15px;">
+                    <span class="info-label">IP 类型</span>
+                    <span class="info-value" id="ip-type">--</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">风险等级</span>
+                    <span class="info-value" id="risk-level">--</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">建议</span>
+                    <span class="info-value" id="ip-recommendation" style="font-size: 12px;">--</span>
+                </div>
+                <div id="ip-checks" style="margin-top: 15px; font-size: 12px;">
+                    <div style="margin-bottom: 5px;">
+                        <span id="check-residential">⏳</span> 住宅IP检查
+                    </div>
+                    <div style="margin-bottom: 5px;">
+                        <span id="check-blacklist">⏳</span> 黑名单检查
+                    </div>
+                    <div style="margin-bottom: 5px;">
+                        <span id="check-proxy">⏳</span> 代理/VPN检测
+                    </div>
+                    <div>
+                        <span id="check-risk">⏳</span> 风险评分
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>会话信息</h2>
+                <div class="info-row">
+                    <span class="info-label">会话 ID</span>
+                    <span class="info-value" id="session-id" style="font-size: 12px;">--</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">到期时间</span>
+                    <span class="info-value" id="session-expires">--</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">剩余时间</span>
+                    <span class="info-value" id="time-remaining">--</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="session-progress" style="width: 0%;"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid">
+            <div class="card">
+                <h2>请求统计</h2>
+                <div class="info-row">
+                    <span class="info-label">总请求数</span>
+                    <span class="info-value" id="total-requests">0</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">成功请求</span>
+                    <span class="info-value" id="successful-requests">0</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">失败请求</span>
+                    <span class="info-value" id="failed-requests">0</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">平均响应时间</span>
+                    <span class="info-value" id="avg-response-time">0ms</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>安全配置</h2>
+                <div class="info-row">
+                    <span class="info-label">TLS 指纹</span>
+                    <span class="info-value" id="tls-fingerprint">--</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">HTTP/2</span>
+                    <span class="info-value" id="http2-enabled">--</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">User Agent</span>
+                    <span class="info-value" id="user-agent" style="font-size: 12px;">--</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>操作</h2>
+            <div class="action-buttons">
+                <button class="btn btn-primary" onclick="refreshData()">刷新数据</button>
+                <button class="btn btn-secondary" onclick="toggleAutoRefresh()">
+                    <span id="auto-refresh-text">开启自动刷新</span>
+                </button>
+                <button class="btn btn-secondary" onclick="downloadLogs()">下载日志</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>实时日志</h2>
+            <div class="logs-container" id="logs-container">
+                <div class="log-entry">等待日志数据...</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = 'http://localhost:7070';
+        let autoRefreshInterval = null;
+        let lastLogPosition = 0;
+
+        async function fetchData() {
+            try {
+                const [healthRes, statsRes, ipReportRes] = await Promise.all([
+                    fetch(`${API_BASE}/health`),
+                    fetch(`${API_BASE}/stats`),
+                    fetch(`${API_BASE}/ip-report`).catch(() => null)
+                ]);
+
+                const health = await healthRes.json();
+                const stats = await statsRes.json();
+                const ipReport = ipReportRes ? await ipReportRes.json() : null;
+
+                updateUI(health, stats, ipReport);
+            } catch (error) {
+                console.error('Failed to fetch data:', error);
+                showError('无法连接到代理服务');
+            }
+        }
+
+        function updateUI(health, stats, ipReport) {
+            // 更新健康状态
+            const healthStatus = document.getElementById('health-status');
+            const statusText = healthStatus.querySelector('.status-text');
+            const statusIndicator = healthStatus.querySelector('.status-indicator');
+            
+            if (health.status === 'healthy') {
+                healthStatus.className = 'status-badge healthy';
+                statusIndicator.className = 'status-indicator healthy';
+                statusText.textContent = '运行正常';
+            } else {
+                healthStatus.className = 'status-badge unhealthy';
+                statusIndicator.className = 'status-indicator unhealthy';
+                statusText.textContent = '异常';
+            }
+
+            // 更新运行时间
+            document.getElementById('uptime').textContent = formatUptime(health.uptime);
+            document.getElementById('environment').textContent = 'development';
+
+            // 更新代理信息
+            if (stats.proxy) {
+                document.getElementById('provider').textContent = stats.proxy.currentProvider || '--';
+                document.getElementById('proxy-health').textContent = stats.proxy.isHealthy ? '健康' : '异常';
+                
+                // 更新会话信息
+                if (stats.proxy.currentSession) {
+                    document.getElementById('session-id').textContent = 
+                        stats.proxy.currentSession.id.substring(0, 8) + '...';
+                }
+            }
+
+            // 更新请求统计
+            document.getElementById('total-requests').textContent = stats.proxy?.totalRequests || 0;
+            document.getElementById('successful-requests').textContent = stats.proxy?.successfulRequests || 0;
+            document.getElementById('failed-requests').textContent = stats.proxy?.failedRequests || 0;
+            document.getElementById('avg-response-time').textContent = 
+                `${Math.round(stats.proxy?.averageResponseTime || 0)}ms`;
+
+            // 更新安全配置
+            if (stats.security) {
+                document.getElementById('tls-fingerprint').textContent = 
+                    stats.security.security.tlsFingerprinting ? '已启用' : '已禁用';
+                document.getElementById('http2-enabled').textContent = 
+                    stats.security.security.http2 ? '已启用' : '已禁用';
+                document.getElementById('user-agent').textContent = 
+                    stats.security.security.userAgent.substring(0, 50) + '...';
+            }
+
+            // 更新会话进度
+            if (health.session) {
+                const now = Date.now();
+                const endTime = new Date(health.session.expiresAt || 0).getTime();
+                const startTime = endTime - 86400000; // 24小时
+                const progress = ((now - startTime) / (endTime - startTime)) * 100;
+                
+                document.getElementById('session-progress').style.width = `${Math.min(100, progress)}%`;
+                document.getElementById('time-remaining').textContent = formatTimeRemaining(endTime - now);
+                document.getElementById('session-expires').textContent = 
+                    new Date(endTime).toLocaleString('zh-CN');
+            }
+
+            // 获取代理IP信息
+            fetchProxyInfo();
+
+            // 更新IP纯净度信息
+            if (ipReport) {
+                updateIPReport(ipReport);
+            }
+        }
+
+        function updateIPReport(report) {
+            // 更新分数
+            const scoreElement = document.querySelector('#ip-score span');
+            const score = report.summary.score || 0;
+            scoreElement.textContent = score;
+            
+            // 更新进度条
+            const progressBar = document.getElementById('ip-score-progress');
+            progressBar.style.width = `${score}%`;
+            
+            // 根据分数设置颜色
+            if (score >= 80) {
+                progressBar.style.backgroundColor = 'var(--success-color)';
+            } else if (score >= 60) {
+                progressBar.style.backgroundColor = 'var(--warning-color)';
+            } else {
+                progressBar.style.backgroundColor = 'var(--error-color)';
+            }
+            
+            // 更新评级
+            document.getElementById('ip-rating').textContent = report.summary.rating || '未知';
+            
+            // 更新详细信息
+            document.getElementById('ip-type').textContent = 
+                report.details.ipType === 'residential' ? '住宅IP' : '数据中心IP';
+            document.getElementById('risk-level').textContent = report.summary.rating || '未知';
+            document.getElementById('ip-recommendation').textContent = 
+                report.summary.recommendation || '无建议';
+            
+            // 更新检查项状态
+            const checks = report.checks || {};
+            updateCheckStatus('check-residential', checks.residential);
+            updateCheckStatus('check-blacklist', checks.blacklist);
+            updateCheckStatus('check-proxy', !checks.proxy);
+            updateCheckStatus('check-risk', checks.riskScore);
+        }
+
+        function updateCheckStatus(elementId, passed) {
+            const element = document.getElementById(elementId);
+            if (passed === undefined) {
+                element.textContent = '⏳';
+            } else if (passed) {
+                element.textContent = '✅';
+            } else {
+                element.textContent = '❌';
+            }
+        }
+
+        async function fetchProxyInfo() {
+            try {
+                // 这里应该从日志或其他接口获取IP信息
+                document.getElementById('proxy-ip').textContent = '92.112.131.84';
+                document.getElementById('location').textContent = '日本 东京';
+            } catch (error) {
+                console.error('Failed to fetch proxy info:', error);
+            }
+        }
+
+        function formatUptime(seconds) {
+            const days = Math.floor(seconds / 86400);
+            const hours = Math.floor((seconds % 86400) / 3600);
+            const minutes = Math.floor((seconds % 3600) / 60);
+            
+            if (days > 0) {
+                return `${days}天 ${hours}小时`;
+            } else if (hours > 0) {
+                return `${hours}小时 ${minutes}分钟`;
+            } else {
+                return `${minutes}分钟`;
+            }
+        }
+
+        function formatTimeRemaining(ms) {
+            if (ms <= 0) return '已过期';
+            
+            const hours = Math.floor(ms / 3600000);
+            const minutes = Math.floor((ms % 3600000) / 60000);
+            
+            return `${hours}小时 ${minutes}分钟`;
+        }
+
+        function refreshData() {
+            fetchData();
+            showMessage('数据已刷新');
+        }
+
+        function toggleAutoRefresh() {
+            const button = document.getElementById('auto-refresh-text');
+            
+            if (autoRefreshInterval) {
+                clearInterval(autoRefreshInterval);
+                autoRefreshInterval = null;
+                button.textContent = '开启自动刷新';
+                showMessage('自动刷新已关闭');
+            } else {
+                autoRefreshInterval = setInterval(fetchData, 5000);
+                button.textContent = '关闭自动刷新';
+                showMessage('自动刷新已开启（5秒）');
+            }
+        }
+
+        function downloadLogs() {
+            showMessage('日志下载功能开发中...');
+        }
+
+        function showMessage(message) {
+            // 简单的消息提示
+            console.log(message);
+        }
+
+        function showError(message) {
+            const healthStatus = document.getElementById('health-status');
+            healthStatus.className = 'status-badge unhealthy';
+            healthStatus.querySelector('.status-text').textContent = message;
+        }
+
+        // 初始化
+        fetchData();
+        
+        // 每30秒刷新一次数据
+        setInterval(fetchData, 30000);
+    </script>
+</body>
+</html>

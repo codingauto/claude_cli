@@ -1,0 +1,117 @@
+{
+  "tls": {
+    "enabled": true,
+    "spoofing": {
+      "enabled": true,
+      "profiles": [
+        {
+          "name": "chrome_120",
+          "ja3": "771,4865-4866-4867-49195-49199-49196-49200-52393-52392-49171-49172-156-157-47-53,0-23-65281-10-11-35-16-5-13-18-51-45-43-27-17513,29-23-24,0",
+          "ja3n": "771,4865-4866-4867-49195-49199-49196-49200-52393-52392-49171-49172-156-157-47-53,0-23-65281-10-11-35-16-5-13-18-51-45-43-27-17513,29-23-24,0",
+          "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+          "weight": 0.4
+        },
+        {
+          "name": "firefox_121",
+          "ja3": "771,4865-4867-4866-49195-49199-52393-52392-49196-49200-49162-49161-49171-49172-51-57-47-53,0-23-65281-10-11-35-16-5-51-43-13-45-28-65037,29-23-24-25-256-257,0",
+          "ja3n": "771,4865-4867-4866-49195-49199-52393-52392-49196-49200-49162-49161-49171-49172-51-57-47-53,0-23-65281-10-11-35-16-5-51-43-13-45-28-65037,29-23-24-25-256-257,0",
+          "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:121.0) Gecko/20100101 Firefox/121.0",
+          "weight": 0.3
+        },
+        {
+          "name": "safari_17",
+          "ja3": "771,4865-4866-4867-49196-49195-52393-49200-49199-52392-49162-49161-49172-49171-157-156-53-47,65281-0-23-35-13-5-18-16-30032-10-12-27-17513,29-23-30-25-24,0-1-2",
+          "ja3n": "771,4865-4866-4867-49196-49195-52393-49200-49199-52392-49162-49161-49172-49171-157-156-53-47,65281-0-23-35-13-5-18-16-30032-10-12-27-17513,29-23-30-25-24,0-1-2",
+          "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.2 Safari/605.1.15",
+          "weight": 0.3
+        }
+      ]
+    },
+    "http2": {
+      "enabled": true,
+      "alpnProtocols": ["h2", "http/1.1"],
+      "settings": {
+        "HEADER_TABLE_SIZE": 65536,
+        "ENABLE_PUSH": 0,
+        "MAX_CONCURRENT_STREAMS": 1000,
+        "INITIAL_WINDOW_SIZE": 6291456,
+        "MAX_FRAME_SIZE": 16384,
+        "MAX_HEADER_LIST_SIZE": 262144
+      }
+    }
+  },
+  "headers": {
+    "security": {
+      "enabled": true,
+      "headers": {
+        "X-Frame-Options": "DENY",
+        "X-Content-Type-Options": "nosniff",
+        "X-XSS-Protection": "1; mode=block",
+        "Strict-Transport-Security": "max-age=31536000; includeSubDomains",
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+      }
+    },
+    "userAgent": {
+      "rotation": {
+        "enabled": true,
+        "interval": 3600000,
+        "randomize": true
+      }
+    },
+    "acceptLanguage": {
+      "enabled": true,
+      "values": [
+        "en-US,en;q=0.9",
+        "en-GB,en;q=0.9",
+        "zh-CN,zh;q=0.9,en;q=0.8"
+      ]
+    }
+  },
+  "timing": {
+    "antiDetection": {
+      "enabled": true,
+      "requestDelay": {
+        "min": 100,
+        "max": 500
+      },
+      "jitter": {
+        "enabled": true,
+        "variance": 0.2
+      }
+    }
+  },
+  "ipValidation": {
+    "enabled": true,
+    "blockCloudProviders": true,
+    "allowedCountries": ["US", "GB", "CA", "AU", "DE", "FR", "JP"],
+    "blockedASNs": [
+      "AS16509",
+      "AS14618", 
+      "AS13335",
+      "AS396982"
+    ],
+    "geoipDatabase": {
+      "enabled": true,
+      "updateInterval": 86400000
+    }
+  },
+  "rateLimit": {
+    "enabled": true,
+    "windowMs": 900000,
+    "max": 100,
+    "skipSuccessfulRequests": false,
+    "skipFailedRequests": false
+  },
+  "authentication": {
+    "enabled": false,
+    "apiKey": {
+      "enabled": false,
+      "header": "X-API-Key",
+      "keys": []
+    },
+    "basicAuth": {
+      "enabled": false,
+      "users": []
+    }
+  }
+} 
