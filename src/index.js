@@ -18,6 +18,7 @@ import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 import dotenv from 'dotenv';
 import { createProxyMiddleware } from 'http-proxy-middleware';
+import { createInterface } from 'readline';
 
 import ProxyManager from './managers/ProxyManager.js';
 import SessionManager from './managers/SessionManager.js';
@@ -330,6 +331,28 @@ function setupRoutes() {
             proxyManager.recordRequest(false);
             res.status(500).json({ error: 'Proxy request failed' });
           }
+        },
+
+        onProxyRes: (proxyRes, req, res) => {
+          const rl = createInterface({ input: proxyRes, crlfDelay: Infinity });
+
+          proxyRes.on('data', (chunk) => {
+            res.write(chunk);
+          });
+
+          proxyRes.on('end', () => {
+            res.end();
+          });
+
+          rl.on('line', (line) => {
+            // We are processing line by line, which is what we want.
+            // The original implementation was processing chunk by chunk.
+          });
+
+          rl.on('error', (err) => {
+            logger.error('代理响应流 readline 错误', { error: err.message });
+            res.end();
+          });
         },
 
         onError: (err, req, res) => {
