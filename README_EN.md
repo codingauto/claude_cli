@@ -179,7 +179,8 @@ After solving IP issues, you still need a valid payment method to subscribe to C
 |----------------|--------------|--------|-------------|
 | **Google Play Gift Card** | Android users | ⭐⭐⭐⭐⭐ | Simplest, supports Alipay purchase |
 | **App Store Gift Card** | iPhone users | ⭐⭐⭐⭐⭐ | Simplest, supports Alipay purchase |
-| **YeKa** | Regular users | ⭐⭐⭐⭐ | Supports Alipay, [referral code discount](https://yeka.ai/i/YD0TA7M7) |
+| **PokePay U-Card** | Regular users | ⭐⭐⭐⭐ | Supports Alipay, [Official Website](https://pokepay.cc) |
+| **51VCard U-Card** | Regular users | ⭐⭐⭐⭐ | Virtual card platform, [Official Website](https://51vcard.com) |
 | **Depay** | Experienced users | ⭐⭐⭐ | Earlier virtual card platform |
 | **Overseas Company Card** | Enterprise users | ⭐⭐⭐⭐⭐ | Most stable, suitable for enterprises |
 | **US Bank Card** | Premium users | ⭐⭐⭐⭐⭐ | Most stable, but high barrier |
